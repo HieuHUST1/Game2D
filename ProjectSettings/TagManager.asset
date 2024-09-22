@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags: []
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - Node
+  - Edge
+  - BG
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Edge
+    uniqueID: 3176293979
+    locked: 0
+  - name: Node
+    uniqueID: 3852061015
+    locked: 0
+  - name: BG
+    uniqueID: 3381465905
+    locked: 0
+  - name: Vehicle
+    uniqueID: 1756363015
+    locked: 0
+  - name: Noti
+    uniqueID: 3029547357
+    locked: 0

@@ -1,2 +1,0 @@
-# Game2D
-DragonWarrior
