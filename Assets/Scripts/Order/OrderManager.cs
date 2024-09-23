@@ -45,7 +45,6 @@ public class OrderManager : MonoBehaviour
     }
 
 
-
     [SerializeField] OrderInfo newOrder;
     public void CreateOrder()
     {
@@ -60,13 +59,13 @@ public class OrderManager : MonoBehaviour
 
         Vector3 foodPosition = nodeManager.RandomFoodAndClientPoint()[0];
 
-        newOrder.SetFood(RespawnFood(food, foodPosition + Vector3.right * 0.1f + Vector3.up * 0.1f), foodPosition);
+        newOrder.SetFood(RespawnFood(food, foodPosition + Vector3.right * 0.1f), foodPosition);
 
         Client client = clientManager.GetRandomClient(); 
 
         Vector3 clientPosition = nodeManager.RandomFoodAndClientPoint()[1];
 
-        newOrder.SetClient(RespawnClient(client, clientPosition + Vector3.right * 0.1f + Vector3.up * 0.1f), clientPosition);
+        newOrder.SetClient(RespawnClient(client, clientPosition + Vector3.right * 0.1f), clientPosition);
 
         newOrder.SetPrice(price);
 
@@ -79,21 +78,19 @@ public class OrderManager : MonoBehaviour
             vehicle.GetComponent<VehicleController>().ReceiveOrder(newOrder);
 
             orderInfoList.Add(newOrder);
-            Debug.Log("preparing");
-            Debug.Log("Order Created: ID = " + newOrder.OrderId);
+            //Debug.Log("preparing");
+            //Debug.Log("Order Created: ID = " + newOrder.OrderId);
             return;
             
         }
         else
         {
             newOrder.SetOrderStatus(0); // 0 = pending, 1 = preparing, 2 = delivering, 3 = delivered
-            Debug.Log("peding");
+            //Debug.Log("peding");
             orderInfoList.Add(newOrder);
         }
            
     }
-
-
 
     public void CompleteOrder(OrderInfo orderInfo)
     {
@@ -102,7 +99,6 @@ public class OrderManager : MonoBehaviour
 
         //uiManager.GetMoneyWhenCompletdOrder(price);
     }
-
 
     private void AssignPendingOrdersToVehicles()
     {
@@ -134,12 +130,16 @@ public class OrderManager : MonoBehaviour
         return Instantiate(client, position, Quaternion.identity);
     }
 
+    [SerializeField] private float minSpawnTime = 3f;
     private IEnumerator TimeDelayCreateOrder()
     {
+        float reductionRate = 0.99f;
         while (true)
         {        
             yield return new WaitForSeconds(timeToSpawnOrder);
             CreateOrder();
+
+            timeToSpawnOrder = Mathf.Max(timeToSpawnOrder * reductionRate, minSpawnTime);
         }
     }
 

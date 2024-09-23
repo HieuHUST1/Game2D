@@ -5,7 +5,7 @@ using UnityEngine;
 public class VehicleController : MonoBehaviour
 {
     [SerializeField] private float speed;
-    [SerializeField] private float waitTimeAtDestination = 1f;
+    [SerializeField] private float waitTimeAtDestination = 0.5f;
     [SerializeField] private LineRenderer lineRenderer
     {
         get
@@ -55,8 +55,8 @@ public class VehicleController : MonoBehaviour
         //    lineRenderer = gameObject.AddComponent<LineRenderer>();
         //}
 
-        lineRenderer.startWidth = 0.015f;
-        lineRenderer.endWidth = 0.015f;
+        lineRenderer.startWidth = 0.05f;
+        lineRenderer.endWidth = 0.05f;
         lineRenderer.startColor = Color.green;
         lineRenderer.endColor = Color.green;
         lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
@@ -105,7 +105,9 @@ public class VehicleController : MonoBehaviour
     {
         yield return new WaitUntil(() => currentTargetIndex >= path.Count);
 
-
+        isMoving = false;
+        yield return new WaitForSeconds(waitTimeAtDestination);
+        
         isMoving = true;
         path = pathfinding.GetPath(orderInfo.foodPosition, orderInfo.clientPosition);
         orderInfo.SetOrderStatus(2);
@@ -115,6 +117,8 @@ public class VehicleController : MonoBehaviour
 
         yield return new WaitUntil(() => currentTargetIndex >= path.Count);
 
+        isMoving = false;
+        yield return new WaitForSeconds(waitTimeAtDestination);
 
         orderInfo.SetOrderStatus(3);
         orderManager.CompleteOrder(orderInfo);
@@ -122,9 +126,8 @@ public class VehicleController : MonoBehaviour
         CompleteOrderVehicle();
         hasCompletedOrder = true;
 
-        Debug.Log("Order Delivery");
+        //Debug.Log("Order Delivery");
         isMoving = false;
-        //path = null;
     }
 
     private void CompleteOrderVehicle()
@@ -157,13 +160,13 @@ public class VehicleController : MonoBehaviour
 
     private void MoveALongPath()
     {
-        if (path == null || path.Count == 0)
+        if (path == null || path.Count == 0 || currentTargetIndex >= path.Count)
         {
             isMoving = false;
             return;
         }
          
-        Node currentNode = path[currentTargetIndex];
+        Node currentNode = path[currentTargetIndex];     // error here
 
         Vector3 targetPosition = currentNode.Position;
 
@@ -183,6 +186,10 @@ public class VehicleController : MonoBehaviour
         {
             currentTargetIndex++;
 
+            if (currentTargetIndex >= path.Count)
+            {
+                 isMoving = false;         
+            }
         }
     }
 
@@ -213,7 +220,6 @@ public class VehicleController : MonoBehaviour
 
         return false;
     }
-
 
     private void OnDrawGizmos()
     {

@@ -134,7 +134,7 @@ public class Pathfinding : MonoBehaviour
             yield return null;
         }
 
-        Debug.Log("remove temporart node");
+        //Debug.Log("remove temporart node");
 
         //if (nodeManager.IsTemporaryNode(endNode))
         //{

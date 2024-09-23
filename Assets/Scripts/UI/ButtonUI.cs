@@ -22,10 +22,6 @@ public class ButtonUI : MonoBehaviour
     private void Update()
     {
         UpdatePriceText();
-        print(currentLevel);
-        print("Current Level: " + currentLevel);
-        print("Total Levels: " + levelPrices.Count);
-        print("count"+levelPrices.Count);
     }
     public void EnableButton()
     {
@@ -55,7 +51,7 @@ public class ButtonUI : MonoBehaviour
 
     public bool CheckUpgrade(int currentMoney)
     {
-        if (currentLevel + 1 < levelPrices.Count && currentMoney >= levelPrices[currentLevel + 1])   //out of range exception
+        if (currentLevel + 1 < levelPrices.Count && currentMoney >= levelPrices[currentLevel + 1])  
         {
             return true;  
         }

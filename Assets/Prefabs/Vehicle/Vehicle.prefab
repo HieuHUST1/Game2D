@@ -99,8 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.8
-  waitTimeAtDestination: 1
-  lineRenderer: {fileID: 0}
+  waitTimeAtDestination: 0.15
   isMoving: 0
 --- !u!114 &3876309245728218920
 MonoBehaviour:

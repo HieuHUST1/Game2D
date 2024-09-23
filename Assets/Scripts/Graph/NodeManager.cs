@@ -137,6 +137,7 @@ public class NodeManager : MonoBehaviour
 
 
     [SerializeField] private float radiusCircleOfRandomPoint = 4f;
+    [SerializeField] private float minDistanceBetweenPoints = 4f;
     public Vector3 GetRandomPointInGraph()
     {       
         Vector3 randomPoint = Vector3.zero;
@@ -151,18 +152,20 @@ public class NodeManager : MonoBehaviour
 
         //Debug.Log("randomratio" +  randomRatio);
  
-        if (randomRatio == 0)
-        {
-            randomPoint = randomEdge.nodeA.Position;
-        }
-        if (randomRatio == 2)
-        {
-            randomPoint = randomEdge.nodeB.Position;
-        }
-        if (randomRatio == 1)
-        {
-            randomPoint = (randomEdge.nodeA.Position + randomEdge.nodeB.Position) / 2;
-        }
+        //if (randomRatio == 0)
+        //{
+        //    randomPoint = randomEdge.nodeA.Position;
+        //}
+        //if (randomRatio == 2)
+        //{
+        //    randomPoint = randomEdge.nodeB.Position;
+        //}
+        //if (randomRatio == 1)
+        //{
+        //    randomPoint = (randomEdge.nodeA.Position + randomEdge.nodeB.Position) / 2;
+        //}
+
+        randomPoint = Vector3.Lerp(randomEdge.nodeA.Position, randomEdge.nodeB.Position, randomRatio);
 
         return randomPoint;
     }
@@ -186,25 +189,63 @@ public class NodeManager : MonoBehaviour
             }
         }
 
+        //if (nodeOutCircleList.Count > 0)
+        //{
+        //    Node randomNodeOutCircle = nodeOutCircleList[Random.Range(0, nodeOutCircleList.Count)];
+
+        //    Edge randomEdgeOutCircle = randomNodeOutCircle.connectedEdges[Random.Range(0, randomNodeOutCircle.connectedEdges.Count)];
+
+        //    float randomRatio = Random.Range(0, 3);
+
+        //    if (randomRatio == 0)
+        //    {
+        //        randomPointOfClient = randomEdgeOutCircle.nodeA.Position;
+        //    }
+        //    if (randomRatio == 2)
+        //    {
+        //        randomPointOfClient = randomEdgeOutCircle.nodeB.Position;
+        //    }
+        //    if (randomRatio == 1)
+        //    {
+        //        randomPointOfClient = (randomEdgeOutCircle.nodeA.Position + randomEdgeOutCircle.nodeB.Position) / 2;
+        //    }
+        //}
+
         if (nodeOutCircleList.Count > 0)
         {
-            Node randomNodeOutCircle = nodeOutCircleList[Random.Range(0, nodeOutCircleList.Count)];
+            bool foundValidPoint = false;
 
-            Edge randomEdgeOutCircle = randomNodeOutCircle.connectedEdges[Random.Range(0, randomNodeOutCircle.connectedEdges.Count)];
+            while (!foundValidPoint)
+            {
+                Node randomNodeOutCircle = nodeOutCircleList[Random.Range(0, nodeOutCircleList.Count)];
 
-            float randomRatio = Random.Range(0, 3);
+                Edge randomEdgeOutCircle = randomNodeOutCircle.connectedEdges[Random.Range(0, randomNodeOutCircle.connectedEdges.Count)];
 
-            if (randomRatio == 0)
-            {
-                randomPointOfClient = randomEdgeOutCircle.nodeA.Position;
-            }
-            if (randomRatio == 2)
-            {
-                randomPointOfClient = randomEdgeOutCircle.nodeB.Position;
-            }
-            if (randomRatio == 1)
-            {
-                randomPointOfClient = (randomEdgeOutCircle.nodeA.Position + randomEdgeOutCircle.nodeB.Position) / 2;
+                //float randomRatio = Random.Range(0, 3);
+                //if (randomRatio == 0)
+                //{
+                //    randomPointOfClient = randomEdgeOutCircle.nodeA.Position;
+                //}
+                //else if (randomRatio == 2)
+                //{
+                //    randomPointOfClient = randomEdgeOutCircle.nodeB.Position;
+                //}
+                //else if (randomRatio == 1)
+                //{
+                //    randomPointOfClient = (randomEdgeOutCircle.nodeA.Position + randomEdgeOutCircle.nodeB.Position) / 2;
+                //}
+                float randomRatio = Random.Range(0f, 1f);
+
+
+                randomPointOfClient = Vector3.Lerp(randomEdgeOutCircle.nodeA.Position, randomEdgeOutCircle.nodeB.Position, randomRatio);
+
+
+                float distanceBetweenPoints = Vector3.Distance(randomPointOfFood, randomPointOfClient);
+
+                if (distanceBetweenPoints >= minDistanceBetweenPoints)
+                {
+                    foundValidPoint = true;
+                }
             }
         }
 
