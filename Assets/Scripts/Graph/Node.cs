@@ -22,7 +22,6 @@ public class Node : MonoBehaviour
 
     }
 
-
     public void SetIndex(int index)
     {
         this.indexOfNode = index;

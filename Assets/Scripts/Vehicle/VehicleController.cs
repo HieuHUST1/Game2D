@@ -47,13 +47,13 @@ public class VehicleController : MonoBehaviour
     }
     private void Start()
     {
-        this.transform.position = Vector3.zero;
-        //this.transform.position = vehicleManager.spawnPoint.position;
+        //this.transform.position = Vector3.zero;
+        this.transform.position = vehicleManager.spawnPoint.position;
 
-        //if (lineRenderer == null)
-        //{
-        //    lineRenderer = gameObject.AddComponent<LineRenderer>();
-        //}
+        if (lineRenderer == null)
+        {
+            lineRenderer = gameObject.AddComponent<LineRenderer>();
+        }
 
         lineRenderer.startWidth = 0.05f;
         lineRenderer.endWidth = 0.05f;

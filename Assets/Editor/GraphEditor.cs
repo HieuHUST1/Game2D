@@ -89,10 +89,6 @@ public class GraphEditor : Editor
                             lastSelectedNode.AddConnection(selectedNode);
                             selectedNode.AddConnection(lastSelectedNode);
 
-
-                            
-
-
                             EditorUtility.SetDirty(lastSelectedNode);
                             EditorUtility.SetDirty(selectedNode);
                         }

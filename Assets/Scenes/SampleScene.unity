@@ -8068,7 +8068,8 @@ MonoBehaviour:
     VehicleId: 0
     orderStatus: 0
     price: 0
-  minSpawnTime: 3
+  minSpawnTime: 2
+  reductionRate: 0.98
 --- !u!4 &598488999
 Transform:
   m_ObjectHideFlags: 0

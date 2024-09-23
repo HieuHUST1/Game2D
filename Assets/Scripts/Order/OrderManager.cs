@@ -131,9 +131,9 @@ public class OrderManager : MonoBehaviour
     }
 
     [SerializeField] private float minSpawnTime = 3f;
+    [SerializeField] private float reductionRate = 0.98f;
     private IEnumerator TimeDelayCreateOrder()
     {
-        float reductionRate = 0.99f;
         while (true)
         {        
             yield return new WaitForSeconds(timeToSpawnOrder);
