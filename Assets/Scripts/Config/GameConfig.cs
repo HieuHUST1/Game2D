@@ -10,4 +10,6 @@ public class GameConfig : SOSingleton<GameConfig>
     [field: SerializeField] public Color edgeLineColor { get; private set; }
 
     [field: SerializeField] public Color nodeColor { get; private set; }
+
+
 }

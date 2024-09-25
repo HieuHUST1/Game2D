@@ -7,7 +7,7 @@ using UnityEngine.Profiling;
 
 public class OrderManager : MonoBehaviour
 {
-    [SerializeField] private List<OrderInfo> orderInfoList;
+    [SerializeField] List<OrderInfo> orderInfoList;
     //[SerializeField] private GameObject orderInfoPrefab;
     
     private FoodManager foodManager;
@@ -134,12 +134,13 @@ public class OrderManager : MonoBehaviour
     [SerializeField] private float reductionRate = 0.98f;
     private IEnumerator TimeDelayCreateOrder()
     {
+        timeToSpawnOrder = OrderConfig.Instance.timeToSpawnOrder;
         while (true)
         {        
             yield return new WaitForSeconds(timeToSpawnOrder);
             CreateOrder();
 
-            timeToSpawnOrder = Mathf.Max(timeToSpawnOrder * reductionRate, minSpawnTime);
+            timeToSpawnOrder = Mathf.Max(timeToSpawnOrder * OrderConfig.Instance.reductionRate, OrderConfig.Instance.timeToSpawnOrderMin);
         }
     }
 

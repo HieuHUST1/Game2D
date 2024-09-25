@@ -5,14 +5,23 @@ using System.Security.Cryptography;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
     public ButtonUI[] uiButton;
     public TextMeshProUGUI[] textStat;
     public TextMeshProUGUI totalMoneyText;
+    public TextMeshProUGUI totalGemsText;
+    public TextMeshProUGUI totalCoinsText;
     public int totalMoney;
     private VehicleManager vehicleManager;
+
+    public Button btn_closePopUpRewards;
+    public GameObject popUp;
+
+    public Button btn_openPopUpRewards;
+
 
     private LevelPrices levelPrices;
     public Canvas canvas;
@@ -20,6 +29,8 @@ public class UIManager : MonoBehaviour
     public int profitStat = 1;
     public float speedStat = 0.5f;
     public int carStat = 1;
+
+    private PopUpManager popUpManager;
 
     [SerializeField] private GameObject clickParticlePrefab;
 
@@ -32,6 +43,7 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
+        popUp.SetActive(false);
         vehicleManager = FindObjectOfType<VehicleManager>();
         uiButton[0].GetLevelPricesList(levelPrices.profitLevelPrice);
         uiButton[1].GetLevelPricesList(levelPrices.carLevelPrice);
@@ -49,6 +61,10 @@ public class UIManager : MonoBehaviour
                 uiButton[index].transform.DOPunchScale(new Vector3(0.1f, 0.1f, 0.1f), 0.2f, 10, 1);
             });
         }
+
+        //btn_closePopUpRewards.onClick.AddListener(ClosePopUpRewards);
+
+        //btn_openPopUpRewards.onClick.AddListener(OpenPopUpRewards);
     }
     
     private void UpdateTextStat()
@@ -191,5 +207,15 @@ public class UIManager : MonoBehaviour
             uiButton[2].DisableButton();
         }
         
+    }
+
+    public void ClosePopUpRewards()
+    {
+        popUpManager.HidePopup();
+    }
+
+    public void OpenPopUpRewards()
+    {
+        popUpManager.ShowPopup();
     }
 }
